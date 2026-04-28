@@ -27,7 +27,9 @@ def convert_coordinate(coordenada):
         Una tupla con los componentes individuales (ej: ("2", "A"))
     """
 
-    return coordenada([0], [1])
+    primero = coordenada[:-1]
+    segundo = coordenada [-1]
+    return primero, segundo
 
 
 def create_record(registro_azara, registro_rui):
@@ -51,9 +53,11 @@ def create_record(registro_azara, registro_rui):
         Tupla combinada si las coordenadas coinciden, o "not a match" si no.
     """
 
-    if  convert_coordinate(registro_azara[1]) == registro_rui[1]:
-        return registro_azara[0] + registro_azara[1] + registro_rui[0] + registro_rui[1] + registro_rui[2]
+    tesoro, coordenada = registro_azara
+    ubicacion, coordenadaa, cuadrante = registro_rui
 
+    if  convert_coordinate(coordenada) == coordenadaa:
+        return registro_azara + registro_rui
     else:
         return "not a match"
 
@@ -134,13 +138,11 @@ def find_index(tupla, elemento):
         find_index((1, 2, 3), 9) -> -1
     """
 
-    if elemento not in tupla:
-        return -1
-
 
     for i in range(len(tupla)):
-        if [i] == elemento:
+        if tupla[i] == elemento:
             return i
+    return -1
 
 
 
@@ -159,10 +161,11 @@ def filter_positives(numeros):
         filter_positives((-3, 1, 0, 5, -2, 7)) -> (1, 5, 7)
         filter_positives((-1, -2, -3)) -> ()
     """
-    resultado = ()
 
+    resultado = ()
     for i in numeros:
         if i>0:
             resultado = resultado + (i,)
-            return resultado
+    return resultado
+
 
